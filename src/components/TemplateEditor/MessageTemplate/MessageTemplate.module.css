@@ -1,0 +1,12 @@
+.conditionContainer {
+	padding-left: 50px;
+}
+
+.opLabel {
+	position: absolute;
+	left: 0px;
+	padding: 2px 5px;
+	background: #a7b6bf;
+	color: white;
+	font-weight: 600;
+}

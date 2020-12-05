@@ -1,0 +1,32 @@
+.editorContainer {
+	display: flex;
+	flex-direction: column;
+	padding-left: 30px;
+	height: 100vh;
+	animation: fadeIn 0.5s;
+}
+.editorHeader {
+	align-self: center;
+	margin: 5px;
+}
+.templateContent {
+	height: calc(100vh - 110px);
+	overflow-y: auto;
+	padding: 15px 0;
+}
+.addContainer {
+	display: flex;
+	height: 28px;
+}
+.addConditionBtn {
+	display: flex;
+	align-items: center;
+}
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}

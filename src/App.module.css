@@ -1,0 +1,11 @@
+.App {
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	overflow-y: auto;
+}
+.editorBtn {
+	width: 200px;
+	align-self: center;
+	margin: auto;
+}

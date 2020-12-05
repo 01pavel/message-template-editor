@@ -1,0 +1,14 @@
+.varsContainer {
+	align-self: flex-start;
+	padding: 20px 0;
+	display: flex;
+	flex-direction: row;
+}
+
+.varsContainer label {
+	margin-right: 25px;
+}
+
+.varsContainer input {
+	margin-left: 5px;
+}
