@@ -16,7 +16,6 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ arrVarNames, template, 
 	const [currentTemplate, setCurrentTemplate] = useState<Array<IMessageItem | ICondition>>(template || [new MessageItemModel()]);
 	const [focusedItemId, setFocusedItem] = useState<number | any>(null);
 	let focusedMessageRef = useRef<HTMLTextAreaElement | null>(null);
-
 	useEffect(() => {
 		MessageItemModel.setIdCounter(getMaxId(0, currentTemplate))
 	}, [])
@@ -64,7 +63,7 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ arrVarNames, template, 
 			if (foundSource) break
 		}
 
-		return [foundSource || currentTemplate, index || 0]
+		return [foundSource, index]
 	}, [])
 
 	/**
@@ -83,7 +82,7 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ arrVarNames, template, 
 		const firstPart = `${itemToUpdate?.text.substr(0, cursorPosition)}{${variable}}`
 
 		updateMessageItem(itemToUpdate, {
-			id: focusedItemId,
+			id: focusedItemId || itemToUpdate.id,
 			text: `${firstPart}${itemToUpdate.text.substr(cursorPosition)}`
 		})
 
@@ -124,7 +123,7 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ arrVarNames, template, 
 		const [sourceForUpdate, index] = findItem(fieldId, currentTemplate);
 
 		updateMessageItem(sourceForUpdate[index], { id: fieldId, text: event.target.value })
-	}, [])
+	}, [focusedItemId])
 
 	const setFocusedItemHandler = useCallback((event: React.FocusEvent<HTMLTextAreaElement>, id: number) => {
 		focusedMessageRef.current = event.target;
@@ -133,12 +132,13 @@ const TemplateEditor: React.FC<TemplateEditorProps> = ({ arrVarNames, template, 
 
 	const deleteCondition = useCallback((id: number): void => {
 		const [sourceForUpdate, index] = findItem(id, currentTemplate);
-		const [messageBeforeCondition, , { text }] = sourceForUpdate;
+		const messageBeforeCondition = sourceForUpdate[index - 1];
+		const { text } = sourceForUpdate[index + 1];
 		messageBeforeCondition.text += text;
 		sourceForUpdate.splice(index, 2);
 		setCurrentTemplate(currentTemplate.slice())
 		focusedMessageRef.current?.focus()
-	}, [currentTemplate, findItem])
+	}, [currentTemplate])
 
 	return (
 		<div className={styles.editorContainer}>
